@@ -1,0 +1,66 @@
+{
+  "name": "markdown-it-monaco",
+  "version": "0.0.1",
+  "description": "Use monaco to render markdown code block",
+  "license": "MIT",
+  "repository": "git@github.com:lip8up/markdown-it-monaco.git",
+  "author": "lip8up <lip8up@qq.com>",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "build": "yarn clean && rollup -c && :",
+    "watch": "yarn clean && rollup -c -w && :",
+    "test": "jest --verbose",
+    "testless": "jest --verbose --collectCoverage=false",
+    "pub": "yarn test && yarn build && yarn publish",
+    "runner": "ts-node -r tsconfig-paths/register -P tests/tsconfig.json tests/runner.ts"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "common-tags": "^1.8.0",
+    "markdown-it": "^12.2.0",
+    "typed-events.ts": "^0.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "@types/common-tags": "^1.8.1",
+    "@types/jest": "^27.0.2",
+    "@types/markdown-it": "^12.2.3",
+    "@types/node": "^16.11.6",
+    "comment-json": "^4.1.1",
+    "jest": "^27.3.1",
+    "jest-extended": "^1.1.0",
+    "jest-extended-global-fail-pass": "^1.8.8",
+    "lint-staged": "^11.2.6",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.58.3",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0",
+    "tsconfig-paths": "^3.11.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.4",
+    "yorkie": "^2.0.0"
+  },
+  "peerDependencies": {
+    "tslib": "*",
+    "typescript": ">=3.7.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "src/*.ts": [
+      "yarn testless tests",
+      "yarn build"
+    ]
+  }
+}
